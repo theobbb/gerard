@@ -1,0 +1,203 @@
+<script lang="ts">
+	import { page } from '$app/state';
+	import { pocketbase } from '$lib/pocketbase';
+
+	import type { ItemsRecord } from '$lib/pocketbase.types';
+	import type { PaginationResult } from '$lib/types';
+	import IconArrowLeftUp from '$lib/ui/icons/icon-arrow-left-up.svelte';
+	import IconArrowLeft from '$lib/ui/icons/icon-arrow-left.svelte';
+	import IconArrowRight from '$lib/ui/icons/icon-arrow-right.svelte';
+	import IconZoomIn from '$lib/ui/icons/icon-zoom-in.svelte';
+	import IconZoomOut from '$lib/ui/icons/icon-zoom-out.svelte';
+	import Image from './image.svelte';
+
+	const { pagination }: { pagination: PaginationResult<ItemsRecord> } = $props();
+	const lang = $derived(page.params.lang);
+	const items: ItemsRecord[] = $state(pagination.items);
+
+	type Item = ItemsRecord & {
+		index: number;
+		previous: string | null;
+		next: string | null;
+	};
+
+	const items_map: Map<string, Item> = new Map();
+
+	map_items(items);
+	function map_items(items: ItemsRecord[]) {
+		const base_index = items_map.size;
+		for (let i = 0; i < items.length; i++) {
+			const item = items[i];
+			const previous = items[i - 1]?.id;
+			const next = items[i + 1]?.id;
+			items_map.set(item.id, { ...item, index: i + base_index, previous, next });
+		}
+	}
+
+	const current_item = $derived(page.params.id ? items_map.get(page.params.id) : null);
+
+	let current_page = $state(pagination.page);
+
+	async function load_more() {
+		if (current_page == pagination.totalPages) return;
+
+		const new_pagination: PaginationResult<ItemsRecord> = await pocketbase
+			.collection('items')
+			.getList(current_page + 1, pagination.perPage, {
+				fields: 'id,title,image,aspect_ratio',
+				sort: 'sort_order'
+			});
+
+		console.log(new_pagination);
+		items.push(...new_pagination.items);
+		map_items(new_pagination.items);
+		current_page++;
+	}
+
+	let zoom = $state(0);
+	const MAX_ZOOM = 3;
+
+	function zoom_in() {
+		zoom = Math.min(zoom + 1, MAX_ZOOM);
+	}
+	function zoom_out() {
+		zoom = Math.max(zoom - 1, 0);
+	}
+	const ZOOM_SIZE = [200, 400, 400, 800];
+	const zoom_size = $derived(ZOOM_SIZE[zoom]);
+</script>
+
+<div class="mb-4 flex items-center gap-2 text-3xl">
+	<button
+		class="flex aspect-square items-center justify-center not-disabled:cursor-pointer disabled:opacity-20"
+		disabled={zoom == 0}
+		onclick={zoom_out}
+	>
+		<IconZoomOut />
+	</button>
+	<button
+		class="flex aspect-square items-center justify-center not-disabled:cursor-pointer disabled:opacity-20"
+		disabled={zoom == MAX_ZOOM}
+		onclick={zoom_in}
+	>
+		<IconZoomIn />
+	</button>
+</div>
+<div
+	class={[
+		'opacity-20- blur-sm- grid gap-gap',
+		current_item
+			? 'w-12 grid-cols-1 lg:w-md lg:grid-cols-6'
+			: zoom == 0
+				? 'grid-cols-6 lg:grid-cols-12'
+				: zoom == 1
+					? 'grid-cols-4 lg:grid-cols-8'
+					: zoom == 2
+						? 'grid-cols-2 lg:grid-cols-4'
+						: zoom == 3
+							? 'grid-cols-1 lg:grid-cols-2'
+							: ''
+	]}
+>
+	{#each items as { title, id, image, aspect_ratio }, i}
+		<!-- <div>{title}</div> -->
+
+		<a
+			class={[
+				current_item && current_item.id != id ? ' opacity-30 hover:opacity-100' : '',
+				i % 11 == 0 || i % 5 == 0 ? 'col-span-2-' : ''
+			]}
+			href="/{lang}/{id}"
+			data-sveltekit-keepfocus
+			data-sveltekit-noscroll
+		>
+			<Image
+				src="https://api.gerard.3xw.ca/api/files/items/{id}/{image}?thumb={zoom_size}x{zoom_size}f"
+				alt={title}
+				aspect_ratio={aspect_ratio || 0}
+			/>
+			<!-- <img
+				src="https://api.gerard.3xw.ca/api/files/items/{id}/{image}?thumb={zoom_size}x{zoom_size}f"
+				alt={title}
+				loading="lazy"
+			/> -->
+		</a>
+
+		<!-- {#if hovered == i}
+    			<div class="pointer-events-none fixed inset-0 flex items-center justify-center">
+    				<img
+    					class="h-full w-full object-contain"
+    					src="https://api.gerard.3xw.ca/api/files/items/{id}/{image}"
+    					alt="{title}-lg"
+    				/>
+    			</div>
+    		{/if} -->
+	{/each}
+</div>
+{#if current_page < pagination.totalPages}
+	<button onclick={load_more}> Load more </button>
+{/if}
+<!-- <div class="relative">
+		{#if current_item}
+			<div class="sticky top-0 flex items-center justify-center">
+				<img
+					class="max-h-[calc(100svh-14rem)] max-w-full object-contain"
+					src="https://api.gerard.3xw.ca/api/files/items/{current_item.id}/{current_item.image}"
+					alt="{current_item.title}-lg"
+				/>
+			</div>
+		{/if}
+	</div> -->
+
+{#if current_item}
+	<div
+		class="bg-amber-200- pointer-events-none fixed inset-12 left-24 flex items-center justify-center max-lg:right-gap-x lg:left-[calc(100vw-56rem)]"
+	>
+		<img
+			class="max-h-full max-w-full object-contain"
+			src="https://api.gerard.3xw.ca/api/files/items/{current_item.id}/{current_item.image}"
+			alt="{current_item.title}-lg"
+		/>
+	</div>
+	<div class="fixed top-2.5 right-gap left-22 text-3xl max-lg:top-12 lg:left-200">
+		<div class="flex justify-between gap-gap">
+			<a class="text-3xl" href="/{lang}" data-sveltekit-keepfocus data-sveltekit-noscroll>
+				<IconArrowLeftUp />
+			</a>
+			<div class="flex items-center gap-gap">
+				<a
+					class="text-3xl"
+					href="/{lang}/{current_item.previous}"
+					data-sveltekit-keepfocus
+					data-sveltekit-noscroll
+				>
+					<IconArrowLeft />
+				</a>
+				<a
+					class="text-3xl"
+					href="/{lang}/{current_item.next}"
+					data-sveltekit-keepfocus
+					data-sveltekit-noscroll
+				>
+					<IconArrowRight />
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="fixed right-gap bottom-3 left-22 whitespace-nowrap lg:left-200">
+		<div class="flex justify-between gap-gap">
+			<div class="truncate">{current_item.title}</div>
+			<div>{current_item.index + 1} / {items.length}</div>
+		</div>
+	</div>
+{/if}
+<!-- 
+{#if current_item}
+	<div class="pointer-events-none fixed inset-12 flex items-center justify-center">
+		<img
+			class="max-h-full max-w-full object-contain"
+			src="https://api.gerard.3xw.ca/api/files/items/{current_item.id}/{current_item.image}"
+			alt="{current_item.title}-lg"
+		/>
+	</div>
+{/if} -->

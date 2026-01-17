@@ -1,0 +1,64 @@
+@import 'tailwindcss';
+
+@font-face {
+	font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: 'Manrope';
+	font-style: normal;
+	font-weight: 600;
+	src: url('/fonts/manrope-v20-latin-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+@theme {
+	--color-bg: rgb(226, 226, 226);
+	--color-text: rgb(36, 36, 36);
+	--color-text-2: rgb(from var(--color-text) r g b / 50%);
+
+	--spacing-gap: 1.2rem;
+	--spacing-gap-x: 1.2rem;
+	--spacing-gap-y: 0.7rem;
+}
+
+html {
+	background-color: var(--color-bg);
+	color: var(--color-text);
+
+	font-family: 'Manrope', sans-serif;
+	line-height: var(--spacing-line-height);
+	font-weight: 500;
+
+	-webkit-tap-highlight-color: unset;
+	/* Optional: Prevents layout shift (page jump) caused by the scrollbar disappearing */
+	scrollbar-gutter: stable;
+}
+body:has(dialog[open]) {
+	overflow: hidden;
+}
+body:has(.window.expanded) {
+	overflow: hidden;
+}
+.text-2 {
+	color: var(--color-text-2);
+}
+
+@media (max-width: 96rem) {
+	html {
+		font-size: 15px;
+	}
+}
+@media (max-width: 48rem) {
+	html {
+		font-size: 13px;
+	}
+}
+
+.grid-12 {
+	display: grid;
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+	gap: var(--spacing-gap);
+}
+
+.font-serif {
+	font-family: 'Instrument Serif';
+	font-size: 2.8rem;
+	line-height: 1;
+	font-weight: 500;
+}
