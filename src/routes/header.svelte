@@ -28,7 +28,7 @@
 <header class="fixed top-0 h-svh w-64 text-xl max-lg:invisible">
 	<div class="flex h-full flex-col justify-between px-gap py-gap-y">
 		<nav class="">
-			<h1>Gérard DuBoid</h1>
+			<h1>Gérard DuBois</h1>
 			<br />
 			<br />
 			<br />
@@ -59,7 +59,7 @@
 <div class={['pointer-events-none fixed inset-0 z-100 lg:hidden', menu_mobile_open && 'bg-bg']}>
 	<div class="mx-gap my-gap-y">
 		<div class="flex justify-between gap-gap">
-			<h1>Gérard DuBoid</h1>
+			<h1>Gérard DuBois</h1>
 			<button
 				class="pointer-events-auto -m-3 p-3"
 				onclick={() => (menu_mobile_open = !menu_mobile_open)}

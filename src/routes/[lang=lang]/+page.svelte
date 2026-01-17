@@ -4,11 +4,21 @@
 
 <div class="mb-64 font-serif text-5xl font-thin text-balance">
 	{#if page.params.lang == 'en'}
-		Illustrator and educator <br /> Three decades of illustration for The New York Times, The New Yorker,
-		and Rolling Stone. From Paris to Montreal, shaping the visual language of the world’s leading publications.
+		<span>Illustrator and educator</span> with over three decades of work
+
+		<span class=""></span>for
+		<span class="whitespace-nowrap italic">The New York Times</span>,
+		<span class="whitespace-nowrap italic">The New Yorker</span>,
+		<span class="whitespace-nowrap italic">Rolling Stone</span>, and many more— from France to
+		Montreal, shaping the visual language of the world’s leading publications.
+		<!-- Illustrator and educator <br /> Three decades of illustration for The New York Times, The New Yorker,
+		and Rolling Stone. From Paris to Montreal, shaping the visual language of the world’s leading publications. -->
 	{:else}
-		Illustrateur et professeur <br /> Three decades of illustration for The New York Times, The New Yorker,
-		and Rolling Stone. From Paris to Montreal, shaping the visual language of the world’s leading publications.
+		Illustrateur et enseignant depuis plus de trente ans pour <span class="whitespace-nowrap italic"
+			>The New York Times</span
+		>, <span class="whitespace-nowrap italic">The New Yorker</span>,
+		<span class="whitespace-nowrap italic">Rolling Stone</span> et bien d’autres—de la France à Montréal,
+		au cœur du langage visuel des grandes publications internationales.
 	{/if}
 </div>
 <svelte:head>

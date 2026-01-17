@@ -2,7 +2,7 @@ import { pocketbase } from '$lib/pocketbase';
 import type { ItemsRecord } from '$lib/pocketbase.types';
 import type { PaginationResult } from '$lib/types';
 
-//export const prerender = true;
+export const prerender = true;
 
 export async function load() {
 	const pagination: PaginationResult<ItemsRecord> = await pocketbase
