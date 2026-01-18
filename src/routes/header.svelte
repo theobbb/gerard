@@ -38,7 +38,7 @@
 					{#if link != 'divider'}
 						<li>
 							<a
-								class={[active_link?.href == link.href ? '' : 'text-2']}
+								class={[active_link?.href == link.href ? '' : 'text-2', 'hover:bg-black/15-']}
 								href="/{page.params.lang}{link.href[lang] || link.href.en}"
 							>
 								{link.name[lang] || link.name.en}
@@ -50,9 +50,11 @@
 				{/each}
 			</ul>
 		</nav>
-		<div>
-			<a href={get_translated('fr')}>Fr </a>/
-			<a href={get_translated('en')}>En </a>
+		<div class="flex items-center gap-0.5">
+			<a class={[lang == 'fr' ? '' : 'text-2']} href={get_translated('fr')}>Fr </a><span
+				class="text-2">/</span
+			>
+			<a class={[lang == 'en' ? '' : 'text-2']} href={get_translated('en')}>En </a>
 		</div>
 	</div>
 </header>

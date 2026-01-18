@@ -7,16 +7,16 @@
 	import IconLink from '$lib/ui/icons/icon-link.svelte';
 </script>
 
-<div class="text-2 mb-2 text-xl">
-	{#if page.params.lang == 'en'}
-		Prints
-	{:else}
-		Imprimés
-	{/if}
-</div>
 <div class="grid-12">
+	<div class="text-2- text-xl lg:col-span-full lg:col-start-2">
+		{#if page.params.lang == 'en'}
+			Prints
+		{:else}
+			Imprimés
+		{/if}
+	</div>
 	<a
-		class="row-start-1 border px-gap py-gap-y font-serif italic lg:col-span-4"
+		class=" border px-gap py-gap-y font-serif italic hover:bg-black/15 hover:text-black lg:col-span-5 lg:col-start-2"
 		href="https://surtonmur.com/collections/gerard-dubois"
 		target="_blank"
 	>
@@ -28,7 +28,7 @@
 		</div>
 	</a>
 	<a
-		class="row-start-2 border px-gap py-gap-y font-serif italic lg:col-span-4"
+		class="col-start-4 border px-gap py-gap-y font-serif italic hover:bg-black/15 lg:col-span-5 lg:col-start-2"
 		href="https://blackdragonpress.co.uk/collections/gerard-dubois"
 		target="_blank"
 	>
@@ -39,10 +39,14 @@
 			</div>
 		</div>
 	</a>
-</div>
-<div class="text-2 mt-12 mb-2 text-xl">For special inquiry, please contact me</div>
-<div class="grid-12">
-	<a class="border px-gap py-gap-y font-serif lg:col-span-4" href="/{page.params.lang}/contact">
+	<div class="text-2- mt-12 text-xl lg:col-span-full lg:col-start-2">
+		For special inquiry, please contact me
+	</div>
+
+	<a
+		class="border px-gap py-gap-y font-serif hover:bg-black/15 lg:col-span-5 lg:col-start-2"
+		href="/{page.params.lang}/contact"
+	>
 		<div class="flex items-center justify-between gap-gap">
 			<div>Contact</div>
 			<div class="">
