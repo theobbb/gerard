@@ -12,7 +12,8 @@
 
 	const active_link = $derived.by(() => {
 		const full_route = page.route.id || '';
-		if (full_route == '/[lang=lang]' || full_route == '/[lang=lang]/[id]') return filtered_links[0];
+		if (full_route == '/[lang=lang]/(grid)' || full_route == '/[lang=lang]/(grid)/[id]')
+			return filtered_links[0];
 		const route = full_route.replace('/[lang=lang]', '');
 		return filtered_links.find((link) => link.href.en.includes(route));
 	});
