@@ -1,12 +1,5 @@
 @import 'tailwindcss';
 
-@font-face {
-	font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-	font-family: 'Manrope';
-	font-style: normal;
-	font-weight: 600;
-	src: url('/fonts/manrope-v20-latin-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
 @theme {
 	--color-bg: rgb(226, 226, 226);
 	--color-text: rgb(36, 36, 36);
@@ -15,6 +8,8 @@
 	--spacing-gap: 1.2rem;
 	--spacing-gap-x: 1.2rem;
 	--spacing-gap-y: 0.7rem;
+
+	--font-serif: 'Instrument Serif';
 }
 
 html {
@@ -55,9 +50,8 @@ body:has(.window.expanded) {
 	grid-template-columns: repeat(12, minmax(0, 1fr));
 	gap: var(--spacing-gap-y) var(--spacing-gap-x);
 }
-
 .font-serif {
-	font-family: 'Instrument Serif';
+	font-family: var(--font-serif);
 	font-size: 2.8rem;
 	line-height: 1;
 	font-weight: 500;

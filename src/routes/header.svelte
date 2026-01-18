@@ -25,31 +25,66 @@
 	}
 </script>
 
-<header class="fixed top-0 h-svh w-64 text-xl max-lg:invisible">
+{#snippet nav()}
+	{#each links as link}
+		{#if link != 'divider'}
+			<li>
+				<a
+					class={[
+						'flex w-full',
+						active_link?.href == link.href ? '' : 'text-2',
+						'hover:bg-black/15-'
+					]}
+					href="/{page.params.lang}{link.href[lang] || link.href.en}"
+				>
+					{link.name[lang] || link.name.en}
+				</a>
+			</li>
+		{:else}
+			<br />
+		{/if}
+	{/each}
+{/snippet}
+
+<header
+	class={[
+		'fixed top-0 z-100 h-svh text-xl max-lg:inset-0 lg:w-64',
+		menu_mobile_open && 'max-lg:bg-bg'
+	]}
+>
 	<div class="flex h-full flex-col justify-between px-gap py-gap-y">
 		<nav class="">
-			<h1>Gérard DuBois</h1>
-			<br />
-			<br />
-			<br />
-			<br />
-			<ul>
-				{#each links as link}
-					{#if link != 'divider'}
-						<li>
-							<a
-								class={[active_link?.href == link.href ? '' : 'text-2', 'hover:bg-black/15-']}
-								href="/{page.params.lang}{link.href[lang] || link.href.en}"
-							>
-								{link.name[lang] || link.name.en}
-							</a>
-						</li>
+			<div class="flex justify-between gap-gap">
+				<a href="/">Gérard DuBois</a>
+				<button
+					class="pointer-events-auto -m-3 p-3 lg:hidden"
+					onclick={() => (menu_mobile_open = !menu_mobile_open)}
+				>
+					{#if menu_mobile_open}
+						{#if lang == 'en'}
+							Close
+						{:else}
+							Fermer
+						{/if}
 					{:else}
-						<br />
+						Menu
 					{/if}
-				{/each}
+				</button>
+			</div>
+			<br />
+			<br />
+			<br />
+			<br />
+			<ul class="max-lg:hidden">
+				{@render nav()}
 			</ul>
+			{#if menu_mobile_open}
+				<ul class="font-serif leading-14! lg:hidden">
+					{@render nav()}
+				</ul>
+			{/if}
 		</nav>
+
 		<div class="flex items-center gap-0.5">
 			<a class={[lang == 'fr' ? '' : 'text-2']} href={get_translated('fr')}>Fr </a><span
 				class="text-2">/</span
@@ -58,25 +93,9 @@
 		</div>
 	</div>
 </header>
-<div class={['pointer-events-none fixed inset-0 z-100 lg:hidden', menu_mobile_open && 'bg-bg']}>
+
+<!-- <div class={['pointer-events-none fixed inset-0 z-100 lg:hidden', menu_mobile_open && 'bg-bg']}>
 	<div class="mx-gap my-gap-y">
-		<div class="flex justify-between gap-gap">
-			<h1>Gérard DuBois</h1>
-			<button
-				class="pointer-events-auto -m-3 p-3"
-				onclick={() => (menu_mobile_open = !menu_mobile_open)}
-			>
-				{#if menu_mobile_open}
-					{#if lang == 'en'}
-						Close
-					{:else}
-						Fermer
-					{/if}
-				{:else}
-					Menu
-				{/if}
-			</button>
-		</div>
 		{#if menu_mobile_open}
 			<nav class="pointer-events-auto mt-12 font-serif">
 				<ul class="flex flex-col gap-gap-y">
@@ -98,4 +117,4 @@
 			</nav>
 		{/if}
 	</div>
-</div>
+</div> -->
