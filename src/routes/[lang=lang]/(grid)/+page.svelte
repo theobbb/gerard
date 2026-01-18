@@ -2,7 +2,7 @@
 	import { page } from '$app/state';
 </script>
 
-<div class="mb-64 font-serif text-5xl font-thin text-balance">
+<div class="mb-36.5 font-serif text-5xl font-thin text-balance">
 	{#if page.params.lang == 'en'}
 		<span>Illustrator and educator</span> with over three decades of work
 

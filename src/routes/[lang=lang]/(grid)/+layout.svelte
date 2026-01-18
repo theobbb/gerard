@@ -65,14 +65,12 @@
 	function zoom_out() {
 		zoom = Math.max(zoom - 1, 0);
 	}
-	const ZOOM_SIZE = [200, 400, 400, 800];
-	const zoom_size = $derived(ZOOM_SIZE[zoom]);
 </script>
 
 <div>
 	{@render children?.()}
 </div>
-<div class="mb-4 flex items-center gap-2 text-3xl">
+<div class={['mb-gap-y flex items-center gap-2 bg-bg text-3xl', current_item && 'hidden']}>
 	<button
 		class="flex aspect-square items-center justify-center not-disabled:cursor-pointer disabled:opacity-20"
 		disabled={zoom == 0}
@@ -90,7 +88,7 @@
 </div>
 <div
 	class={[
-		'opacity-20- blur-sm- grid gap-gap',
+		'opacity-20- blur-sm- grid gap-gap select-none',
 		current_item
 			? 'w-12 grid-cols-1 lg:w-md lg:grid-cols-6'
 			: zoom == 0
@@ -106,49 +104,29 @@
 >
 	{#each items as { title, id, image, aspect_ratio }, i}
 		<a
-			class={[current_item && current_item.id != id ? ' opacity-30 hover:opacity-100' : '']}
+			class={[
+				'hover:opacity-100',
+				current_item && current_item.id != id
+					? ' opacity-30 '
+					: 'transition delay-100 duration-200',
+				''
+			]}
 			href="/{lang}/{id}"
 			data-sveltekit-keepfocus
 			data-sveltekit-noscroll
 		>
 			<Image {id} {image} alt={title} aspect_ratio={aspect_ratio || 1} />
-			<!-- <img
-				src="https://api.gerard.3xw.ca/api/files/items/{id}/{image}?thumb={zoom_size}x{zoom_size}f"
-				alt={title}
-				loading="lazy"
-			/> -->
 		</a>
 		{#if i % 11 == 0 || i % 5 == 0}
 			<div class=""></div>
 		{/if}
-
-		<!-- {#if hovered == i}
-    			<div class="pointer-events-none fixed inset-0 flex items-center justify-center">
-    				<img
-    					class="h-full w-full object-contain"
-    					src="https://api.gerard.3xw.ca/api/files/items/{id}/{image}"
-    					alt="{title}-lg"
-    				/>
-    			</div>
-    		{/if} -->
 	{/each}
 </div>
 {#if current_page < pagination.totalPages}
-	<button class="mt-gap-y cursor-pointer" onclick={load_more}>
-		Load more <span class="inline-flex translate-y-px">+</span></button
-	>
+	<button class="link-hover mt-36 cursor-pointer" onclick={load_more}>
+		Load more <span class="inline-flex translate-y-px">+</span>
+	</button>
 {/if}
-<!-- <div class="relative">
-		{#if current_item}
-			<div class="sticky top-0 flex items-center justify-center">
-				<img
-					class="max-h-[calc(100svh-14rem)] max-w-full object-contain"
-					src="https://api.gerard.3xw.ca/api/files/items/{current_item.id}/{current_item.image}"
-					alt="{current_item.title}-lg"
-				/>
-			</div>
-		{/if}
-	</div> -->
 
 {#if current_item}
 	<div
@@ -199,7 +177,7 @@
 					/> -->
 				</div>
 			</div>
-			<div class="flex justify-between gap-gap">
+			<div class="flex justify-between gap-gap text-sm/4.5">
 				<div class="truncate">{current_item.title}</div>
 			</div>
 		</div>

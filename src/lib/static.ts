@@ -31,16 +31,17 @@ export const links: (
 			fr: '/a-propos'
 		}
 	},
-	{
-		name: {
-			en: 'Shop',
-			fr: 'Boutique'
-		},
-		href: {
-			en: '/shop',
-			fr: '/boutique'
-		}
-	},
+
+	// {
+	// 	name: {
+	// 		en: 'Shop',
+	// 		fr: 'Boutique'
+	// 	},
+	// 	href: {
+	// 		en: '/shop',
+	// 		fr: '/boutique'
+	// 	}
+	// },
 	{
 		name: {
 			en: 'Contact'
@@ -49,7 +50,15 @@ export const links: (
 			en: '/contact'
 		}
 	},
-	'divider'
+	{
+		name: {
+			en: 'Linktree'
+		},
+		href: {
+			en: '/linktree'
+		}
+	}
+
 	// {
 	// 	name: {
 	// 		en: 'Instagram'

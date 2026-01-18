@@ -5,11 +5,13 @@
 	--color-text: rgb(36, 36, 36);
 	--color-text-2: rgb(from var(--color-text) r g b / 50%);
 
-	--spacing-gap: 1.2rem;
-	--spacing-gap-x: 1.2rem;
-	--spacing-gap-y: 0.7rem;
+	--spacing-gap: 1.4rem;
+	--spacing-gap-x: 1.4rem;
+	--spacing-gap-y: 0.9rem;
 
 	--font-serif: 'Instrument Serif';
+
+	--spacing-drawer: 14rem;
 }
 
 html {
@@ -55,4 +57,9 @@ body:has(.window.expanded) {
 	font-size: 2.8rem;
 	line-height: 1;
 	font-weight: 500;
+}
+
+.link-hover:hover {
+	text-decoration: underline;
+	text-underline-offset: 0.25em;
 }

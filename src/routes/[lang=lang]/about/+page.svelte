@@ -1,4 +1,4 @@
-<div class="max-w-2xl text-xl text-balance">
+<!-- <div class="max-w-2xl text-xl text-balance">
 	Born in France, Gérard Duboid studied graphic arts in Paris for five years. After graduating in
 	1989, he crossed the Atlantic and worked as a graphic design consultant for various Acadian
 	magazines and newspapers (New Brunswick, Prince Edward Island, Nova Scotia) as part of an
@@ -43,7 +43,7 @@
 	His paintings, primarily acrylics, are held in private collections—including those of Rolling Stone
 	Magazine, author Stephen King, and filmmaker Guillermo del Toro—as well as in the collections of the
 	Victoria and Albert Museum in London and the Musée de l’Illustration Jeunesse in Moulins.
-</div>
+</div> -->
 
 <!-- <div class="fixed top-gap-y right-32">
 	<img src="/images/profile.webp" class="size-64" />
