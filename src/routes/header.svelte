@@ -84,11 +84,11 @@
 
 <header
 	class={[
-		'fixed top-0 left-0 z-100 h-svh text-xl max-lg:right-0 lg:w-drawer',
+		'fixed top-0 left-0 z-100 h-lvh text-xl max-lg:right-0 lg:w-drawer',
 		menu_mobile_open ? 'max-lg:bg-bg' : 'max-lg:pointer-events-none'
 	]}
 >
-	<div class="flex h-full flex-col justify-between px-gap py-gap-y">
+	<div class="flex h-svh flex-col justify-between px-gap py-gap-y">
 		<nav class="">
 			<div class="pointer-events-auto flex justify-between gap-gap">
 				<a href="/" class={[' whitespace-nowrap']}>Gérard DuBois</a>
