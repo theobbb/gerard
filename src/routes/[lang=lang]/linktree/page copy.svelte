@@ -1,7 +1,6 @@
 <script>
 	import { page } from '$app/state';
 	import { links } from '$lib/static';
-	import IconArrowLeft from '$lib/ui/icons/icon-arrow-left.svelte';
 	import IconArrowRightThin from '$lib/ui/icons/icon-arrow-right-thin.svelte';
 	import IconLink from '$lib/ui/icons/icon-link.svelte';
 
@@ -15,22 +14,19 @@
 
 {#if from_url}
 	<div class="mx-gap-x my-gap-y text-xl">
-		<a class="link-hover flex items-center gap-1" href={from_url}
-			><IconArrowLeft /> Retour au site</a
-		>
+		<a class="link-hover" href={from_url}>Retour au site</a>
 	</div>
 {:else}
 	<br />
 {/if}
-<div class="mx-auto my-24 space-y-gap-y px-gap-x text-xl/6 whitespace-nowrap sm:max-w-md">
-	<div class="flex flex-wrap justify-between gap-2 font-serif">
-		<div class="underline">Gérard DuBois</div>
-
-		<div>* linktree</div>
+<div class="mx-auto my-24 max-w-md space-y-gap-y px-gap-x text-xl whitespace-nowrap">
+	<div class="mb-gap-y flex justify-between font-serif">
+		<div class=" underline">Gérard DuBois</div>
+		<div>(linktree)</div>
 	</div>
 
 	<div>
-		<a class="block border px-gap py-gap-y hover:bg-black/10 hover:text-black" href="/{lang}">
+		<a class=" block border px-gap py-gap-y hover:bg-black/10 hover:text-black" href="/{lang}">
 			<div class="flex items-center justify-between gap-gap font-serif">
 				<div>Site web</div>
 				<div>
@@ -46,9 +42,8 @@
 			</div>
 		</a>
 	</div>
-
-	<!-- SHOP -->
-	<div class="mt-12 flex items-end justify-between gap-4">
+	<div class="mb-1">
+		<div class="mt-12 text-right font-serif underline-offset-4">...(shop)</div>
 		<div class=" -ml-px">
 			{#if page.params.lang == 'en'}
 				Prints
@@ -56,7 +51,6 @@
 				Imprimés
 			{/if}
 		</div>
-		<div class="text-right font-serif underline-offset-4">* shop</div>
 	</div>
 
 	<a
@@ -84,7 +78,7 @@
 		</div>
 	</a>
 
-	<div class="mt-8 -ml-px text-balance whitespace-normal">
+	<div class="mt-6 mb-1 -ml-px">
 		{#if page.params.lang == 'en'}
 			For special inquiry, contact me
 		{:else}
@@ -103,13 +97,19 @@
 		</div>
 	</a>
 
-	<!-- RÉSEAUX -->
-	<div class="mt-12">
-		<div class=" text-right font-serif underline-offset-4">* réseaux</div>
+	<div class="mb-1">
+		<div class="mt-12 text-right font-serif underline-offset-4">...(réseaux)</div>
+		<div class=" -ml-px">
+			{#if page.params.lang == 'en'}
+				Prints
+			{:else}
+				Imprimés
+			{/if}
+		</div>
 	</div>
 	<a
 		class="block w-full border px-gap py-gap-y font-serif hover:bg-black/10"
-		href="mailto:info@gdubois.com"
+		href="/{page.params.lang}/contact"
 	>
 		<div class="flex items-center justify-between gap-gap">
 			Email
@@ -118,8 +118,7 @@
 	</a>
 	<a
 		class="block w-full border px-gap py-gap-y font-serif hover:bg-black/10"
-		href="https://www.instagram.com/gduboisstudio/"
-		target="_blank"
+		href="/{page.params.lang}/contact"
 	>
 		<div class="flex items-center justify-between gap-gap">
 			Instagram
@@ -128,8 +127,7 @@
 	</a>
 	<a
 		class="block w-full border px-gap py-gap-y font-serif hover:bg-black/10"
-		href="https://www.facebook.com/gduboisstudio/"
-		target="_blank"
+		href="/{page.params.lang}/contact"
 	>
 		<div class="flex items-center justify-between gap-gap">
 			Facebook

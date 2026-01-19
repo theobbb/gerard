@@ -122,7 +122,7 @@
 		</nav>
 
 		<div class={[menu_mobile_open ? '' : 'max-lg:hidden']}>
-			<div class="flex flex-col text-black/75 lg:text-sm/4.5">
+			<div class="flex flex-col text-black/75 max-lg:gap-0.5 lg:text-sm/4.5">
 				<a class="link-hover" href="https://www.instagram.com/gduboisstudio/" target="_blank">
 					Instagram
 				</a>
@@ -131,7 +131,7 @@
 				</a>
 			</div>
 			<br />
-			<div class="flex items-center gap-0.5">
+			<div class="flex items-center gap-2 lg:gap-0.5">
 				<a class={['link-hover', lang == 'fr' ? '' : 'text-2']} href={get_translated('fr')}> Fr </a>
 				<span class="text-2"> / </span>
 				<a class={['link-hover', lang == 'en' ? '' : 'text-2']} href={get_translated('en')}>En </a>

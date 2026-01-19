@@ -38,7 +38,7 @@
 				<br />
 				<a href="tel:+16092521949" target="_blank">fax: 609-252-1949</a>
 			</div>
-			<div class="col-span-full lg:col-span-3 lg:col-start-6 xl:col-start-9">
+			<div class="col-span-full xl:col-span-3 xl:col-start-6 2xl:col-start-9">
 				322 Ewing Street
 				<br />
 				Princeton, NJ 08540, USA
