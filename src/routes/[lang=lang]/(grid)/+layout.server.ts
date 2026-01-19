@@ -1,13 +1,12 @@
 import { pocketbase } from '$lib/pocketbase';
-import type { ItemsRecord } from '$lib/pocketbase.types';
+import type { FolioImagesRecord } from '$lib/pocketbase.types';
+
 import type { PaginationResult } from '$lib/types';
 
-export const prerender = true;
-
 export async function load() {
-	const pagination: PaginationResult<ItemsRecord> = await pocketbase
-		.collection('items')
+	const pagination: PaginationResult<FolioImagesRecord> = await pocketbase
+		.collection('folio_images')
 		.getList(1, 144, { fields: 'id,title,image,aspect_ratio', sort: 'sort_order' });
-	console.log('load grid');
+
 	return { pagination };
 }

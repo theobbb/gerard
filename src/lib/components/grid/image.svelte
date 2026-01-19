@@ -54,7 +54,7 @@
 	style="aspect-ratio: {aspect_ratio}; max-width: 1000px;"
 	class={['relative max-h-full max-w-full overflow-hidden ', cx]}
 >
-	<!-- <img
+	<img
 		class={['absolute inset-0 h-full w-full object-cover', loaded ? 'opacity-100' : 'opacity-0']}
 		{srcset}
 		sizes="{width}px"
@@ -62,7 +62,7 @@
 		{onload}
 		use:sync_check
 		loading="lazy"
-	/> -->
+	/>
 	<div
 		class={[
 			'absolute inset-0 bg-neutral-300',

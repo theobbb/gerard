@@ -1,9 +1,7 @@
 <script lang="ts">
+	import { onNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 	import { links as static_links } from '$lib/static';
-	import Dialog from '$lib/ui/dialog.svelte';
-	import IconArrowRightThin from '$lib/ui/icons/icon-arrow-right-thin.svelte';
-	import IconLink from '$lib/ui/icons/icon-link.svelte';
 
 	const lang = $derived(['en', 'fr'].includes(page.params.lang || '') ? page.params.lang : 'en') as
 		| 'en'
@@ -38,10 +36,9 @@
 		return path; // Keep query params if any
 	}
 
-	let dialog_shop_open = $state(false);
-	function close_dialog_shop() {
-		dialog_shop_open = false;
-	}
+	onNavigate(() => {
+		menu_mobile_open = false;
+	});
 </script>
 
 {#snippet nav()}
@@ -105,7 +102,7 @@
 		</nav>
 
 		<div class={[menu_mobile_open ? '' : 'max-lg:hidden']}>
-			<div class="flex flex-col text-sm/4.5 text-black/75">
+			<div class="flex flex-col text-black/75 lg:text-sm/4.5">
 				<a class="link-hover" href="https://www.instagram.com/gduboisstudio/" target="_blank">
 					Instagram
 				</a>
@@ -123,63 +120,6 @@
 	</div>
 </header>
 
-{#if dialog_shop_open}
-	<Dialog onclose={close_dialog_shop}>
-		<div class="px-gap-x py-gap-y">
-			<div class="mb-1 -ml-px">
-				{#if page.params.lang == 'en'}
-					Prints
-				{:else}
-					Imprimés
-				{/if}
-			</div>
-
-			<a
-				class="mb-gap-y block border px-gap py-gap-y font-serif italic hover:bg-black/15 hover:text-black"
-				href="https://surtonmur.com/collections/gerard-dubois"
-				target="_blank"
-			>
-				<div class="flex items-center justify-between gap-gap">
-					<div>Sur ton mur</div>
-					<div>
-						<IconLink />
-					</div>
-				</div>
-			</a>
-			<a
-				class="col-start-4 block border px-gap py-gap-y font-serif italic hover:bg-black/15 lg:col-span-5 lg:col-start-2"
-				href="https://blackdragonpress.co.uk/collections/gerard-dubois"
-				target="_blank"
-			>
-				<div class="flex items-center justify-between gap-gap">
-					<div>Black Dragon Press</div>
-					<div class="rotate-">
-						<IconLink />
-					</div>
-				</div>
-			</a>
-
-			<div class="mt-12 mb-1 -ml-px">
-				{#if page.params.lang == 'en'}
-					For special inquiry, contact me
-				{:else}
-					Pour toute demande spéciale, contactez moi
-				{/if}
-			</div>
-			<a
-				class="block w-full border px-gap py-gap-y font-serif hover:bg-black/15"
-				href="/{page.params.lang}/contact"
-			>
-				<div class="flex items-center justify-between gap-gap">
-					<div>Contact</div>
-					<div class="">
-						<IconArrowRightThin />
-					</div>
-				</div>
-			</a>
-		</div>
-	</Dialog>
-{/if}
 <!-- <div class={['pointer-events-none fixed inset-0 z-100 lg:hidden', menu_mobile_open && 'bg-bg']}>
 	<div class="mx-gap my-gap-y">
 		{#if menu_mobile_open}

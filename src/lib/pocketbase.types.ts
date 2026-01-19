@@ -11,7 +11,10 @@ export enum Collections {
 	Mfas = "_mfas",
 	Otps = "_otps",
 	Superusers = "_superusers",
-	Items = "items",
+	BookImages = "book_images",
+	BookView = "book_view",
+	Books = "books",
+	FolioImages = "folio_images",
 	Tags = "tags",
 	Users = "users",
 }
@@ -94,16 +97,40 @@ export type SuperusersRecord = {
 	verified?: boolean
 }
 
-export type ItemsRecord = {
+export type BookImagesRecord = {
 	aspect_ratio?: number
+	book?: RecordIdString
+	description?: string
+	id: string
+	image: FileNameString
+	sort_order?: number
+	title?: string
+}
+
+export type BookViewRecord<Timages = unknown> = {
+	book_id?: RecordIdString
+	id: string
+	image_count?: number
+	images?: null | Timages
+	title?: string
+}
+
+export type BooksRecord = {
 	created: IsoAutoDateString
+	description?: string
+	id: string
+	title?: string
+	updated: IsoAutoDateString
+}
+
+export type FolioImagesRecord = {
+	aspect_ratio?: number
 	description?: string
 	id: string
 	image: FileNameString
 	sort_order?: number
 	tags?: RecordIdString[]
 	title?: string
-	updated: IsoAutoDateString
 }
 
 export type TagsRecord = {
@@ -132,7 +159,10 @@ export type ExternalauthsResponse<Texpand = unknown> = Required<ExternalauthsRec
 export type MfasResponse<Texpand = unknown> = Required<MfasRecord> & BaseSystemFields<Texpand>
 export type OtpsResponse<Texpand = unknown> = Required<OtpsRecord> & BaseSystemFields<Texpand>
 export type SuperusersResponse<Texpand = unknown> = Required<SuperusersRecord> & AuthSystemFields<Texpand>
-export type ItemsResponse<Texpand = unknown> = Required<ItemsRecord> & BaseSystemFields<Texpand>
+export type BookImagesResponse<Texpand = unknown> = Required<BookImagesRecord> & BaseSystemFields<Texpand>
+export type BookViewResponse<Timages = unknown, Texpand = unknown> = Required<BookViewRecord<Timages>> & BaseSystemFields<Texpand>
+export type BooksResponse<Texpand = unknown> = Required<BooksRecord> & BaseSystemFields<Texpand>
+export type FolioImagesResponse<Texpand = unknown> = Required<FolioImagesRecord> & BaseSystemFields<Texpand>
 export type TagsResponse<Texpand = unknown> = Required<TagsRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
 
@@ -144,7 +174,10 @@ export type CollectionRecords = {
 	_mfas: MfasRecord
 	_otps: OtpsRecord
 	_superusers: SuperusersRecord
-	items: ItemsRecord
+	book_images: BookImagesRecord
+	book_view: BookViewRecord
+	books: BooksRecord
+	folio_images: FolioImagesRecord
 	tags: TagsRecord
 	users: UsersRecord
 }
@@ -155,7 +188,10 @@ export type CollectionResponses = {
 	_mfas: MfasResponse
 	_otps: OtpsResponse
 	_superusers: SuperusersResponse
-	items: ItemsResponse
+	book_images: BookImagesResponse
+	book_view: BookViewResponse
+	books: BooksResponse
+	folio_images: FolioImagesResponse
 	tags: TagsResponse
 	users: UsersResponse
 }
