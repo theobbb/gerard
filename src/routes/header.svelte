@@ -25,15 +25,35 @@
 		const full_route = page.route.id || '';
 		if (full_route == '/[lang=lang]/(grid)' || full_route == '/[lang=lang]/(grid)/[id]')
 			return filtered_links[0];
+		console.log(full_route);
 		const route = full_route.replace('/[lang=lang]', '');
-		return filtered_links.find((link) => link.href.en.includes(route));
+		return filtered_links.find((link, i) => {
+			if (i == 0) return false;
+			return route.startsWith(link.href.en);
+		});
 	});
 
 	function get_translated(target_lang: 'en' | 'fr') {
-		const new_active_link = active_link?.href[target_lang] || active_link?.href.en;
-		const path = `/${target_lang}${new_active_link}`;
+		// 1. Get the base path we are translating from (e.g., /fr/livres)
+		// We use the active_link to find the known "prefix"
+		const current_localized_prefix = active_link?.href[lang] || active_link?.href.en || '';
+		const full_localized_prefix = `/${lang}${current_localized_prefix}`;
 
-		return path; // Keep query params if any
+		// 2. Get the new base path (e.g., /en/books)
+		const target_localized_prefix = active_link?.href[target_lang] || active_link?.href.en || '';
+		const new_base = `/${target_lang}${target_localized_prefix}`;
+
+		// 3. Capture the dynamic part (the [id] or whatever follows)
+		// If current path is /fr/livres/123, the 'tail' is /123
+		const current_path = page.url.pathname;
+
+		if (current_path.startsWith(full_localized_prefix) && current_localized_prefix !== '/') {
+			const tail = current_path.slice(full_localized_prefix.length);
+			return new_base + tail;
+		}
+
+		// Fallback for homepage or if prefixes don't match
+		return new_base;
 	}
 
 	onNavigate(() => {
@@ -119,28 +139,3 @@
 		</div>
 	</div>
 </header>
-
-<!-- <div class={['pointer-events-none fixed inset-0 z-100 lg:hidden', menu_mobile_open && 'bg-bg']}>
-	<div class="mx-gap my-gap-y">
-		{#if menu_mobile_open}
-			<nav class="pointer-events-auto mt-12 font-serif">
-				<ul class="flex flex-col gap-gap-y">
-					{#each links as link}
-						{#if link != 'divider'}
-							<li class="flex w-full">
-								<a
-									class={['flex w-full', active_link?.href == link.href ? '' : 'text-2']}
-									href="/{page.params.lang}{link.href[lang] || link.href.en}"
-								>
-									{link.name[lang] || link.name.en}
-								</a>
-							</li>
-						{:else}
-							<div class="invisible" aria-hidden="true">*</div>
-						{/if}
-					{/each}
-				</ul>
-			</nav>
-		{/if}
-	</div>
-</div> -->

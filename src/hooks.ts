@@ -17,10 +17,20 @@ links.forEach((link) => {
 });
 
 export const reroute: Reroute = ({ url }) => {
-	// Check if the current path exists in our translation map
-	if (url.pathname in translated) {
-		return translated[url.pathname];
+	const p = url.pathname;
+
+	// 1. Check for an exact match (e.g., /fr/livres)
+	if (p in translated) {
+		return translated[p];
 	}
 
-	// If no match is found, SvelteKit continues as normal
+	// 2. Check for a prefix match (e.g., /fr/livres/123)
+	for (const [localizedPrefix, canonicalPrefix] of Object.entries(translated)) {
+		// We check for localizedPrefix + '/' to ensure we don't accidentally
+		// match /fr/livres-new when looking for /fr/livres
+		if (p.startsWith(localizedPrefix + '/')) {
+			const remainingPath = p.slice(localizedPrefix.length);
+			return canonicalPrefix + remainingPath;
+		}
+	}
 };
